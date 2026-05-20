@@ -1,11 +1,14 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy import func, Integer
+import random
 
 from app.database.dependencies import get_db
 from app.models.attempt_model import Attempt
 from app.models.problem_model import Problem
 from app.models.topic_model import Topic
+from app.models.user_model import User
+from app.utils.auth import get_current_user
 
 router = APIRouter(prefix="/analytics", tags=["Analytics"])
 
@@ -88,62 +91,39 @@ def get_overall_stats(db: Session = Depends(get_db)):
     }
 
 #recommendatations
-@router.get("/recommendations")
-def get_recommendations(db: Session = Depends(get_db)):
-    
-    # Step 1: Calculate topic accuracy
-    results = (
-        db.query(
-            Topic.id,
-            Topic.name,
-            func.count(Attempt.id).label("total"),
-            func.sum(func.cast(Attempt.is_solved, Integer)).label("solved")
+@router.get("/recommendation")
+def get_recommendation(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+
+    unsolved_problems = (
+        db.query(Problem)
+        .filter(
+            Problem.user_id == current_user.id,
+            Problem.is_solved == False
         )
-        .join(Problem, Problem.topic_id == Topic.id)
-        .join(Attempt, Attempt.problem_id == Problem.id)
-        .group_by(Topic.id)
         .all()
     )
 
-    topic_accuracy = []
+    if unsolved_problems:
+        selected = random.choice(unsolved_problems)
 
-    for topic_id, name, total, solved in results:
-        accuracy = (solved / total) * 100 if total > 0 else 0
-
-        topic_accuracy.append({
-            "topic_id": topic_id,
-            "name": name,
-            "accuracy": accuracy
-        })
-
-    # Step 2: Sort by weakest topics
-    topic_accuracy.sort(key=lambda x: x["accuracy"])
-
-    # Step 3: Pick top 2 weak topics
-    weak_topics = topic_accuracy[:2]
-
-    recommendations = []
-
-    solved_problem_ids = (
-        db.query(Attempt.problem_id)
-        .filter(Attempt.is_solved == True)
-        .subquery()
-    )
-
-    for topic in weak_topics:
-        problems = (
+    else:
+        all_problems = (
             db.query(Problem)
-            .filter(Problem.topic_id == topic["topic_id"])
-            .filter(~Problem.id.in_(solved_problem_ids))  # 🔥 exclude solved
-            .limit(3)
+            .filter(Problem.user_id == current_user.id)
             .all()
         )
 
-        for problem in problems:
-            recommendations.append({
-                "title": problem.title,
-                "topic": topic["name"],
-                "difficulty": problem.difficulty
-            })
+        if not all_problems:
+            return {"message": "No problems available"}
 
-    return recommendations
+        selected = random.choice(all_problems)
+
+    return {
+        "id": selected.id,
+        "title": selected.title,
+        "difficulty": selected.difficulty,
+        "link": selected.link,
+    }
