@@ -105,12 +105,13 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 
 function Layout() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex">
-      <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
-
+    <div className="min-h-screen bg-gray-900 text-white">
+      <div className="md:hidden">
+        <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+      </div>
       <div className="flex-1">
         <Header setIsOpen={setIsOpen} />
 

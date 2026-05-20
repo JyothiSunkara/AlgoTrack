@@ -14,23 +14,23 @@ function Sidebar({ isOpen, setIsOpen }) {
       {/* Sidebar */}
       <div
         className={`
-          fixed md:static top-0 left-0 min-h-screen w-64 bg-gray-800 p-5 z-50
+          fixed top-0 left-0 min-h-screen w-64 bg-gray-800 p-5 z-50
           transform transition-transform duration-300
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
-          md:translate-x-0
         `}
       >
-        {/* Mobile Header */}
-        <div className="flex justify-between items-center mb-8 md:hidden">
-          <h1 className="text-xl font-bold">DSA Tracker</h1>
-
-          <button onClick={() => setIsOpen(false)}>✕</button>
+        {/* Top Section */}
+        <div className="flex items-center justify-between mb-10">
+          {/* Title */}
+          <h1 className="text-2xl font-bold">DSA Tracker</h1>
+          {/* Mobile Close */}
+          <button
+            onClick={() => setIsOpen(false)}
+            className="md:hidden text-xl"
+          >
+            ✕
+          </button>
         </div>
-
-        {/* Desktop Title */}
-        <h1 className="text-2xl font-bold mb-10 hidden md:block">
-          DSA Tracker
-        </h1>
 
         {/* Navigation */}
         <nav className="flex flex-col gap-5">
@@ -48,14 +48,6 @@ function Sidebar({ isOpen, setIsOpen }) {
             className="hover:text-blue-400"
           >
             Problems
-          </Link>
-
-          <Link
-            to="/profile"
-            onClick={() => setIsOpen(false)}
-            className="hover:text-blue-400"
-          >
-            Profile
           </Link>
 
           <button
