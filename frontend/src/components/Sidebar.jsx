@@ -49,16 +49,6 @@ function Sidebar({ isOpen, setIsOpen }) {
           >
             Problems
           </Link>
-
-          <button
-            onClick={() => {
-              localStorage.removeItem("token");
-              window.location.href = "/";
-            }}
-            className="text-left text-red-400 hover:text-red-500 mt-5"
-          >
-            Logout
-          </button>
         </nav>
       </div>
     </>

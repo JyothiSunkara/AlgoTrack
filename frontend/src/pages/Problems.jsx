@@ -6,6 +6,7 @@ function Problems() {
   const [showModal, setShowModal] = useState(false);
   const [topics, setTopics] = useState([]);
   const [problems, setProblems] = useState([]);
+  const [showFilters, setShowFilters] = useState(false);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -219,7 +220,34 @@ function Problems() {
         )}
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4 mb-6">
+      {/* Mobile Filter Toggle */}
+      <div className="md:hidden mb-4">
+        <button
+          onClick={() => setShowFilters(!showFilters)}
+          className="
+            w-full
+          bg-gray-800
+            border border-gray-700
+            rounded-xl
+            px-4 py-3
+            flex items-center justify-between
+          "
+        >
+          <span className="font-medium">Filters</span>
+
+          <span>{showFilters ? "−" : "+"}</span>
+        </button>
+      </div>
+
+      <div
+        className={`
+          ${showFilters ? "flex" : "hidden"}
+          md:flex
+          flex-col md:flex-row
+          gap-4 mb-6
+        `}
+      >
+        {" "}
         {/* Search */}
         <input
           type="text"
@@ -228,7 +256,6 @@ function Problems() {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="bg-gray-800 text-white px-4 py-3 rounded-xl outline-none flex-1"
         />
-
         {/* Status Filter */}
         <select
           value={statusFilter}
@@ -239,7 +266,6 @@ function Problems() {
           <option value="Solved">Solved</option>
           <option value="Unsolved">Unsolved</option>
         </select>
-
         {/* Topic Filter */}
         <select
           value={topicFilter}
@@ -254,7 +280,6 @@ function Problems() {
             </option>
           ))}
         </select>
-
         {/* Difficulty Filter */}
         <select
           value={difficultyFilter}
