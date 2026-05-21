@@ -7,20 +7,20 @@ function Problems() {
   const [topics, setTopics] = useState([]);
   const [problems, setProblems] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
-
   const [formData, setFormData] = useState({
     title: "",
     difficulty: "Easy",
     topic_id: "",
     link: "",
   });
-
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [topicFilter, setTopicFilter] = useState("All");
   const [difficultyFilter, setDifficultyFilter] = useState("All");
+  const [currentPage, setCurrentPage] = useState(1);
+  const problemsPerPage = 10;
 
   const handleChange = (e) => {
     setFormData({
@@ -28,6 +28,7 @@ function Problems() {
       [e.target.name]: e.target.value,
     });
   };
+
   useEffect(() => {
     fetchTopics();
     fetchProblems();
@@ -115,6 +116,20 @@ function Problems() {
     return matchesSearch && matchesStatus && matchesTopic && matchesDifficulty;
   });
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, statusFilter, topicFilter, difficultyFilter]);
+
+  const indexOfLastProblem = currentPage * problemsPerPage;
+  const indexOfFirstProblem = indexOfLastProblem - problemsPerPage;
+  const currentProblems = filteredProblems.slice(
+    indexOfFirstProblem,
+    indexOfLastProblem,
+  );
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredProblems.length / problemsPerPage),
+  );
   return (
     <div>
       {/* Header */}
@@ -311,7 +326,7 @@ function Problems() {
         </div>
       ) : (
         <div className="flex flex-col gap-4">
-          {filteredProblems.map((problem) => (
+          {currentProblems.map((problem) => (
             <div
               key={problem.id}
               className="bg-gray-800 rounded-2xl p-5 shadow-lg"
@@ -369,6 +384,41 @@ function Problems() {
           ))}
         </div>
       )}
+
+      <div className="flex justify-center items-center gap-3 mt-8">
+        <button
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(currentPage - 1)}
+          className="
+            px-4 py-2
+          bg-gray-800
+          hover:bg-gray-700
+            rounded-xl
+            transition
+            disabled:opacity-50
+          "
+        >
+          Previous
+        </button>
+
+        <span className="text-gray-300">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          disabled={indexOfLastProblem >= filteredProblems.length}
+          onClick={() => setCurrentPage(currentPage + 1)}
+          className="
+            px-4 py-2
+          bg-gray-800
+          hover:bg-gray-700
+            rounded-xl
+            transition
+            disabled:opacity-50
+          "
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 }
