@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 from app.database.dependencies import get_db
 from app.models.problem_model import Problem
@@ -50,6 +51,10 @@ def toggle_problem_status(
 
     problem.is_solved = not problem.is_solved
 
+    if problem.is_solved:
+        problem.solved_at = datetime.utcnow()
+    else:
+        problem.solved_at = None
     db.commit()
     db.refresh(problem)
 

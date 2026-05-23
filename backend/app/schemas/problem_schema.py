@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
+from datetime import datetime
 
 class ProblemCreate(BaseModel):
     title : str
@@ -14,6 +15,7 @@ class ProblemResponse(BaseModel):
     link : Optional[str]
     topic_id : int
     is_solved: bool
-    
+    solved_at: datetime | None = None
+
     class Config:
         from_attributes = True

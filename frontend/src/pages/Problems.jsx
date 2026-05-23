@@ -57,7 +57,7 @@ function Problems() {
 
     try {
       await API.post("/problems/", formData);
-      fetchProblems();
+      await fetchProblems();
       setMessage("Problem added successfully!");
       setIsError(false);
       setTimeout(() => {
@@ -94,27 +94,31 @@ function Problems() {
     }
   };
 
-  const filteredProblems = problems.filter((problem) => {
-    const title = problem.title || "";
-    const difficulty = problem.difficulty || "";
+  const filteredProblems = problems
+    .filter((problem) => {
+      const title = problem.title || "";
+      const difficulty = problem.difficulty || "";
 
-    const matchesSearch =
-      title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      difficulty.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesSearch =
+        title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        difficulty.toLowerCase().includes(searchTerm.toLowerCase());
 
-    const matchesStatus =
-      statusFilter === "All" ||
-      (statusFilter === "Solved" && problem.is_solved) ||
-      (statusFilter === "Unsolved" && !problem.is_solved);
+      const matchesStatus =
+        statusFilter === "All" ||
+        (statusFilter === "Solved" && problem.is_solved) ||
+        (statusFilter === "Unsolved" && !problem.is_solved);
 
-    const matchesTopic =
-      topicFilter === "All" || problem.topic_id === Number(topicFilter);
+      const matchesTopic =
+        topicFilter === "All" || problem.topic_id === Number(topicFilter);
 
-    const matchesDifficulty =
-      difficultyFilter === "All" || difficulty === difficultyFilter;
+      const matchesDifficulty =
+        difficultyFilter === "All" || difficulty === difficultyFilter;
 
-    return matchesSearch && matchesStatus && matchesTopic && matchesDifficulty;
-  });
+      return (
+        matchesSearch && matchesStatus && matchesTopic && matchesDifficulty
+      );
+    })
+    .sort((a, b) => b.id - a.id);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -130,6 +134,7 @@ function Problems() {
     1,
     Math.ceil(filteredProblems.length / problemsPerPage),
   );
+
   return (
     <div>
       {/* Header */}
@@ -160,6 +165,7 @@ function Problems() {
                 <button
                   onClick={() => {
                     setShowModal(false);
+                    setMessage("");
                     setMessage("");
                   }}
                   className="text-gray-400 hover:text-white text-xl"
@@ -329,7 +335,16 @@ function Problems() {
           {currentProblems.map((problem) => (
             <div
               key={problem.id}
-              className="bg-gray-800 rounded-2xl p-5 shadow-lg"
+              className="
+              bg-gray-800
+                rounded-2xl
+                p-3
+                shadow-lg
+                border border-gray-700
+              hover:border-gray-500
+                transition-all
+                duration-200
+              "
             >
               <div className="flex items-center justify-between gap-4">
                 {" "}

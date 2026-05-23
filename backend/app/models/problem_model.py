@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey,DateTime
 from sqlalchemy.orm import relationship
+from datetime import datetime
 from app.database.database import Base
 
 class Problem(Base):
@@ -10,6 +11,7 @@ class Problem(Base):
     difficulty = Column(String, nullable=False)
     link = Column(String, nullable=False)
     is_solved = Column(Boolean, default=False)
+    solved_at = Column(DateTime, nullable=True)
 
     topic_id = Column(Integer, ForeignKey("topics.id")) 
     topic = relationship("Topic")

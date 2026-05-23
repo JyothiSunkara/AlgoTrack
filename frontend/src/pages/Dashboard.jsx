@@ -86,6 +86,11 @@ function Dashboard() {
     );
   }
 
+  const recentSolvedProblems = problems
+    .filter((problem) => problem.is_solved)
+    .sort((a, b) => new Date(b.solved_at) - new Date(a.solved_at))
+    .slice(0, 5);
+
   return (
     <div className="p-4 md:p-6 bg-gray-900 min-h-screen text-white">
       {/* Header */}
@@ -194,29 +199,29 @@ function Dashboard() {
       <div className="bg-gray-800 rounded-2xl p-6 mb-8 border border-gray-700 shadow-lg">
         <h2 className="text-xl font-semibold mb-5">Recent Problems</h2>
 
-        {problems.length === 0 ? (
-          <p className="text-gray-400">No problems added yet.</p>
+        {recentSolvedProblems.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-gray-400">
+              🚀 Solve problems to see your recent activity here.
+            </p>
+          </div>
         ) : (
           <div className="flex flex-col gap-3">
-            {problems.slice(0, 5).map((problem) => (
+            {recentSolvedProblems.map((problem) => (
               <div
                 key={problem.id}
                 className="
-                  flex items-center justify-between
-                bg-gray-700/70
-                  border border-gray-600
-                  rounded-xl
-                  p-4
-                hover:border-gray-500
-                  transition-all
-                "
+            flex items-center justify-between
+            bg-gray-700/70
+            border border-gray-600
+            rounded-xl
+            p-4
+            hover:border-gray-500
+            transition-all
+          "
               >
                 <div className="flex items-center gap-3">
-                  <div
-                    className={`w-3 h-3 rounded-full ${
-                      problem.is_solved ? "bg-green-500" : "bg-gray-500"
-                    }`}
-                  />
+                  <div className="w-3 h-3 rounded-full bg-green-500" />
 
                   <p>{problem.title}</p>
                 </div>

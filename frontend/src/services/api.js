@@ -30,12 +30,6 @@ API.interceptors.response.use(
   },
 );
 
-export const getOverallStats = () => API.get("/analytics/overall-stats");
-
-export const getWeakTopics = () => API.get("/analytics/weak-topics");
-
-export const getStrongTopics = () => API.get("/analytics/strong-topics");
-
 export const getRecommendation = () => API.get("/analytics/recommendation");
 
 export default API;
