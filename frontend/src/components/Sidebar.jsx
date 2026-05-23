@@ -22,7 +22,7 @@ function Sidebar({ isOpen, setIsOpen }) {
         {/* Top Section */}
         <div className="flex items-center justify-between mb-10">
           {/* Title */}
-          <h1 className="text-2xl font-bold">DSA Tracker</h1>
+          <h1 className="text-2xl font-bold">AlgoTrack</h1>
           {/* Mobile Close */}
           <button
             onClick={() => setIsOpen(false)}

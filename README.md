@@ -1,10 +1,10 @@
-# DSA Tracker
+# AlgoTrack
 
-A full-stack DSA problem tracking application that helps users organize, manage, and monitor their coding interview preparation journey.
+Built with React, FastAPI, PostgreSQL, and Tailwind CSS, AlgoTrack helps users organize, track, and monitor their DSA preparation journey efficiently.
 
 ---
 
-# Features
+## Features
 
 - JWT Authentication
 - Add and manage coding problems
@@ -16,19 +16,20 @@ A full-stack DSA problem tracking application that helps users organize, manage,
 - Random problem recommendation
 - Pagination support
 - Mobile responsive UI
+- Automatic Swagger API documentation
 
 ---
 
-# Tech Stack
+## Tech Stack
 
-## Frontend
+### Frontend
 
 - React
 - Tailwind CSS
 - Axios
 - React Router
 
-## Backend
+### Backend
 
 - FastAPI
 - PostgreSQL
@@ -37,7 +38,7 @@ A full-stack DSA problem tracking application that helps users organize, manage,
 
 ---
 
-# Dashboard Features
+## Analytics Dashboard
 
 - Total Problems
 - Solved Problems
@@ -49,11 +50,9 @@ A full-stack DSA problem tracking application that helps users organize, manage,
 
 ---
 
----
+## Screenshots
 
-# Screenshots
-
-## Login Page
+### Login Page
 
 <p align="center">
   <img src="./screenshots/login.png" width="900" alt="Login Page"/>
@@ -101,18 +100,20 @@ A full-stack DSA problem tracking application that helps users organize, manage,
   <img src="./screenshots/mobile-filters.png" width="250" alt="Mobile Filters"/>
 </p>
 
-# Installation
+---
 
-## Clone Repository
+## Installation
+
+### Clone Repository
 
 ```bash
-git clone <your-github-repo-link>
-cd DSA_Progress_Tracker
+git clone https://github.com/JyothiSunkara/AlgoTrack.git
+cd AlgoTrack
 ```
 
 ---
 
-## Frontend Setup
+### Frontend Setup
 
 ```bash
 cd frontend
@@ -122,17 +123,17 @@ npm run dev
 
 ---
 
-## Backend Setup
+### Backend Setup
 
 ```bash
 cd backend
 pip install -r requirements.txt
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
 
 ---
 
-# Environment Variables
+## Environment Variables
 
 Create a `.env` file inside backend:
 
@@ -145,10 +146,10 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 
 ---
 
-# Project Structure
+## Project Structure
 
 ```txt
-DSA_Progress_Tracker/
+AlgoTrack/
 │
 ├── backend/
 │   │
@@ -220,16 +221,17 @@ DSA_Progress_Tracker/
 └── README.md
 ```
 
-# Future Improvements
+## Future Improvements
 
 - Charts and analytics visualization
 - AI-powered hints
+- Edit/Delete problems
 - Notes feature
 - Streak tracking
-- Deployment
+- Cloud deployment
 
 ---
 
-# Author
+## Author
 
 Jyothi Sunkara

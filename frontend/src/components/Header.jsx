@@ -59,7 +59,7 @@ function Header({ setIsOpen }) {
         </button>
 
         {/* Title */}
-        <h1 className="text-xl md:text-2xl font-bold">DSA Tracker</h1>
+        <h1 className="text-xl md:text-2xl font-bold">AlgoTrack</h1>
       </div>
 
       {/* Right Section */}
