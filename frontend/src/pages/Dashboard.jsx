@@ -256,28 +256,25 @@ function Dashboard() {
 
       {/* Recommendation Widget */}
       <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700 shadow-lg">
-        {" "}
         <h2 className="text-xl font-semibold mb-5">Problem Recommendation</h2>
+
         <p className="text-gray-400 mb-5">Not sure what to solve next?</p>
+
         <button
           onClick={getRecommendedProblem}
           className="bg-blue-600 hover:bg-blue-700 px-5 py-3 rounded-xl font-semibold transition"
         >
           Recommend Me a Problem
         </button>
-        {recommendedProblem && (
-          <div
-            className="
-              mt-6
-            bg-gray-700/70
-              border border-gray-600
-              rounded-2xl
-              p-5
-            hover:border-gray-500
-              transition-all
-            "
-          >
-            {" "}
+
+        {/* No problems state */}
+        {recommendedProblem && recommendedProblem.id === null && (
+          <div className="mt-6 text-gray-400">No problems to recommend 🚫</div>
+        )}
+
+        {/* Recommendation card */}
+        {recommendedProblem && recommendedProblem.id !== null && (
+          <div className="mt-6 bg-gray-700/70 border border-gray-600 rounded-2xl p-5 hover:border-gray-500 transition-all">
             <div className="flex items-center justify-between gap-4 flex-wrap">
               {/* Left */}
               <div>
@@ -303,14 +300,7 @@ function Dashboard() {
                 href={recommendedProblem.link}
                 target="_blank"
                 rel="noreferrer"
-                className="
-                bg-blue-600 hover:bg-blue-700
-                  px-5 py-2.5
-                  rounded-xl
-                  font-medium
-                  transition-all
-                  hover:scale-105
-                "
+                className="bg-blue-600 hover:bg-blue-700 px-5 py-2.5 rounded-xl font-medium transition-all hover:scale-105"
               >
                 Solve Now
               </a>

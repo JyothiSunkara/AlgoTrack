@@ -36,8 +36,12 @@ def get_recommendation(
         )
 
         if not all_problems:
-            return {"message": "No problems available"}
-
+            return {
+                "id": None,
+                "title": "No problems available",
+                "difficulty": "",
+                "link": ""
+            }
         selected = random.choice(all_problems)
 
     return {
