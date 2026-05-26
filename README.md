@@ -4,6 +4,19 @@ Built with React, FastAPI, PostgreSQL, and Tailwind CSS, AlgoTrack helps users o
 
 ---
 
+## 🔗 Live Demo
+
+- 🌐 Frontend: https://algo-track-rose.vercel.app
+- ⚙️ Backend API: https://algotrack-backend-ccjt.onrender.com
+- 📄 API Docs: https://algotrack-backend-ccjt.onrender.com/docs
+
+### 🔑 Demo Credentials
+
+- Email: demo@algotrack.com
+- Password: demo@123
+
+---
+
 ## Features
 
 - JWT Authentication
