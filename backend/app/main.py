@@ -14,7 +14,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://localhost:3000",
-        "https://algo-track-rose.vercel.app/",
+        "https://algo-track-rose.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
